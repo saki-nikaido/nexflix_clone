@@ -1,6 +1,8 @@
 import React from "react";
 import { css } from '@emotion/react';
 import { BsFillPlayFill } from "react-icons/bs";
+import FavoriteButton from "@/components/FavoriteButton";
+
 interface MovieListProps {
     data:Record<string, string>;
 }
@@ -35,6 +37,7 @@ const MovieCard:React.FC<MovieListProps> = ({ data }) => {
                         <div css={css`cursor: pointer; height:1.5rem; width: 1.5rem; border-radius:50%; background-color:white; display:flex; justify-content:center;align-items: center; `} onClick={()=>{}} >
                             <BsFillPlayFill />
                         </div>
+                        <FavoriteButton movieId={data?.id} />
                     </div>
                     <p css={css`color:green; font-weight:bold; font-size:1rem; margin:0%; margin-top:0.5rem; `}>New<span css={css`color:white; padding-left:5px; font-weight:normal; `}>2023</span></p>
                     <div css={css`display:flex; flex-direction:row; margin-top:0; align-items:center;`}>

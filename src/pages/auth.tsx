@@ -122,12 +122,12 @@ const Auth = () => {
                       <div
                         css={css`display: center; flex-direction: row; align-items: center; gap: 1rem; justify-content: center;`}>
                         <div 
-                        onClick={() => signIn('google', {callbackUrl: '/profiels'})} 
+                        onClick={() => signIn('google', {callbackUrl: '/profiles'})} 
                         css={css`width:35px; height:35px; background-color:white; border-radius:50%; display: flex; justify-content: center; align-items: center; cursor: pointer; &:hover{opacity:-70}; transition:0.2s; margin-top:2rem; `}>
                           <FcGoogle size={30}/>
                         </div>
                       <div 
-                        onClick={() => signIn('github', {callbackUrl: '/profiels'})}
+                        onClick={() => signIn('github', {callbackUrl: '/profiles'})}
                         css={css`width:35px; height:35px; background-color:white; border-radius:50%; display: flex; justify-content: center; align-items: center; cursor: pointer; &:hover{opacity:-70}; transition:0.2s; margin-top:2rem; `}>
                           <FaGithub size={30}/>
                         </div>
