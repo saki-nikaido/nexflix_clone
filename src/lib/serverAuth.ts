@@ -32,13 +32,10 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     return { currentUser };
-  } catch (error: unknown) {
-    if (error instanceof Error){
+  } catch (error: any) {
     console.error("Server Auth Error:", error.message);
-    } else{
-    console.error("Unknown error occurred");
-    }
-    }
+    throw error;
+  }
 };
 
 export default serverAuth;
