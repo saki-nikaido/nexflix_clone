@@ -1,28 +1,30 @@
-import { css } from '@emotion/react'
+import { css } from '@emotion/react';
 
 interface InputProps {
     id: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    value: string;
+    //value: string;
     label: string;
     type?: string;
+    error?: string;
+    register: any;
 }
 
 
 export const Input: React.FC<InputProps>  = ({
     id,
-    onChange,
-    value,
+    //value,
     label,
     type,
+    error,
+    register
 }) =>{
     return(
         <div css= {css` position: relative;`}>
             <input
-                onChange={onChange}
                 type={type}
-                value={value} 
+                //value={value} 
                 id= {id}
+                {...register(id)}
                 css = {css`
                     display: block; 
                     border-radius: 6px;
@@ -64,6 +66,11 @@ export const Input: React.FC<InputProps>  = ({
             htmlFor= {id}>
             {label}
             </label>
+            {error && (
+                <p css={css`color: red; font-size: 14px; margin-top: 5px;`}>
+                    {error}
+                </p>
+            )}
         </div>
     );
 };
