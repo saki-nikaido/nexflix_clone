@@ -105,7 +105,7 @@ const Auth = () => {
                           <Input 
                               label="Username"
                               id="name"
-                              register={register}
+                              register={register("name")}
                               //value= {name}
                               error={errors.name?.message}
                               />
@@ -114,7 +114,7 @@ const Auth = () => {
                           <Input 
                           label="Email"
                           id="email"
-                          register={register}
+                          register={register("email")}
                           type="email"
                           //value= {email}
                           error={errors.email?.message}
@@ -123,7 +123,7 @@ const Auth = () => {
                           <Input 
                           label="Password"
                           id="password"
-                          register={register}
+                          register={register("password")}
                           type="password"
                           //value= {password}
                           error={errors.password?.message}
