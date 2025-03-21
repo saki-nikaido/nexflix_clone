@@ -3,6 +3,7 @@ import useBillboard from "@/hooks/useBillboard";
 import React from "react";
 import { globalStyle } from '@/styles/globalStyle';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import PlayButton from "./PlayButton";
 
 const Billboard = () => {
     const { data } = useBillboard();
@@ -53,6 +54,7 @@ const Billboard = () => {
                     flex-direction: row;
                     gap: 3px;
                     `}>
+                    <PlayButton movieId ={data?.id} />
                     <button css={css`
                     font-weight: 10;
                     border: none;
@@ -70,7 +72,7 @@ const Billboard = () => {
                     @media (min-width: 768px) {
                     font-size:large;
                     border-radius: 5px;
-                    padding: 10px 10px;
+                    padding: 8px 10px;
                     };
                     `}>
                     <AiOutlineInfoCircle css={css`

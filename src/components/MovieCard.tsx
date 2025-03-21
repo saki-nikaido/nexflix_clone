@@ -1,4 +1,6 @@
 import React from "react";
+import { useRouter } from 'next/router';
+
 import { css } from '@emotion/react';
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -7,6 +9,7 @@ interface MovieListProps {
     data:Record<string, string>;
 }
 const MovieCard:React.FC<MovieListProps> = ({ data }) => {
+    const router = useRouter();
     return (
         <div css={css`position:relative;  height:12vw; background-color: rgb(24 24 27);
           &:hover > div {
@@ -34,7 +37,7 @@ const MovieCard:React.FC<MovieListProps> = ({ data }) => {
                 <div css={css`z-index: 10; background-color: #4b5563; margin-top:0; position:absolute; width:100%; padding: 1rem; box-sizing: border-box ; 
                  `}>
                     <div css={css`display: flex; flex-direction: row; align-items: center; gap: 5px;`}>
-                        <div css={css`cursor: pointer; height:1.5rem; width: 1.5rem; border-radius:50%; background-color:white; display:flex; justify-content:center;align-items: center; `} onClick={()=>{}} >
+                        <div css={css`cursor: pointer; height:1.5rem; width: 1.5rem; border-radius:50%; background-color:white; display:flex; justify-content:center;align-items: center; `} onClick={()=>router.push(`/watch/${data?.id}`)} >
                             <BsFillPlayFill />
                         </div>
                         <FavoriteButton movieId={data?.id} />

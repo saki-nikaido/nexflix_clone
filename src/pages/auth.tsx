@@ -3,10 +3,13 @@ import { Input } from "@/components/Input";
 import { useCallback, useState } from "react";
 import axios from "axios";
 import { signIn } from 'next-auth/react';
-
 import{ FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import { globalStyle } from "@/styles/globalStyle";
+
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { validationSchema } from "@/utils/validationSchema";
 
 const wrapper = css`
 background-image: url('/images/hero.jpg');
@@ -30,40 +33,56 @@ background-color: black;
 `;
 
 const Auth = () => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+
 
   const [variant, setVariant] = useState('login');
+  
+  interface IFormInput {
+    email: string,
+    name?: string,
+    password: string
+  }
+
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput> ({
+    defaultValues: {
+      email: "",
+      name: "",
+      password: "",
+    },
+    mode:"onChange",
+    resolver: zodResolver(validationSchema),
+  });
+
   const toggleVariant = useCallback(() => {
       setVariant((currentVariant) => currentVariant == 'login' ? 'register' : 'login');
   }, []);
   
-  const login = useCallback(async () => {
-    try{
-      await signIn('credentials' , {
-        email,
-        password,
-        redirect: false,
-        callbackUrl:'/profiles'
-      });
-    } catch(error) {
-      console.log(error);
-    };
-  }, [email, password ]);
 
-  const register = useCallback(async () => {
+
+  const onSubmit = async(data: IFormInput ) => {
   try {
+    if(variant == "register"){
     await axios.post('/api/register', {
-      email,
-      name,
-      password
+      email: data.email,
+      name: data.name,
+      password: data.password,
     });
-    login();
+  }
+  await signIn('credentials' , {
+    email: data.email,
+    password: data.password,
+    redirect: false,
+    callbackUrl:'/profiles'
+  });
   } catch (error){
     console.log(error);
   };
-  }, [email, name, password, login]);
+  };
 
 
 
@@ -81,31 +100,37 @@ const Auth = () => {
                   {css`background-color: rgba(0 , 0 ,0, 0.7); padding: 50px 50px; align-self: center; margin-top: 10px; 
                   @media (min-width: 1024px) {width: 40%; max-width: 380px; }; border-radius: 6px; width: 100%; margin-bottom:20px;`}>
                       <h2 css={css` color:white; font-size: 32px; margin-bottom: 32px; font-weight: 600;`}>{variant == 'login' ? 'Sign in' : 'Resister'}</h2>
-                      <div css={css`display: flex; flex-direction: column; gap: 1rem; `}>
-                      {variant == 'register' && (
+                      <form onSubmit={handleSubmit(onSubmit)} css={css`display: flex; flex-direction: column; gap: 1rem; `}>
+                      {variant === 'register' && (
                           <Input 
                               label="Username"
-                              onChange={(e) => setName(e.target.value)}
                               id="name"
-                              value= {name}
+                              register={register}
+                              //value= {name}
+                              error={errors.name?.message}
                               />
                       )}
+                        
                           <Input 
                           label="Email"
-                          onChange={(e) => setEmail(e.target.value)}
                           id="email"
+                          register={register}
                           type="email"
-                          value= {email}
+                          //value= {email}
+                          error={errors.email?.message}
                           />
+
                           <Input 
                           label="Password"
-                          onChange={(e) => setPassword(e.target.value)}
                           id="password"
+                          register={register}
                           type="password"
-                          value= {password}
+                          //value= {password}
+                          error={errors.password?.message}
                           />
-                      </div>
-                      <button onClick={variant == 'login' ? login : register} 
+
+                      
+                      <button type="submit"
                       css={css`
                       background-color: red;
                       font-size: 16px;
@@ -119,6 +144,7 @@ const Auth = () => {
                       `}>
                       {variant == 'login' ? 'Login' :'Sign up'}
                       </button>
+                      </form>
                       <div
                         css={css`display: center; flex-direction: row; align-items: center; gap: 1rem; justify-content: center;`}>
                         <div 
