@@ -7,6 +7,8 @@ import useMovieList from '@/hooks/useMovieList';
 import useFavorites from '@/hooks/useFavorites';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import useInfoModal from '@/hooks/useInfoModal';
+import InfoModal from '@/components/infoModal';
 
 
 
@@ -30,8 +32,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 export default function Home() {
   const {data: movies = [] } =useMovieList();
   const {data:favorites = [] } =useFavorites();
+  const {isOpen, closeModal} = useInfoModal();
   return (
     <>
+    <InfoModal visible= {isOpen}  onClose={closeModal} />
       <Navbar />
       <Billboard />
       <div>

@@ -7,7 +7,7 @@ import{ FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import { globalStyle } from "@/styles/globalStyle";
 
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { validationSchema } from "@/utils/validationSchema";
 
@@ -66,7 +66,7 @@ const Auth = () => {
 
   const onSubmit = async(data: IFormInput ) => {
   try {
-    if(variant == "register"){
+    if(variant === "register"){
     await axios.post('/api/register', {
       email: data.email,
       name: data.name,
@@ -105,7 +105,7 @@ const Auth = () => {
                           <Input 
                               label="Username"
                               id="name"
-                              register={register("name")}
+                              register={register}
                               //value= {name}
                               error={errors.name?.message}
                               />
@@ -114,7 +114,7 @@ const Auth = () => {
                           <Input 
                           label="Email"
                           id="email"
-                          register={register("email")}
+                          register={register}
                           type="email"
                           //value= {email}
                           error={errors.email?.message}
@@ -123,7 +123,7 @@ const Auth = () => {
                           <Input 
                           label="Password"
                           id="password"
-                          register={register("password")}
+                          register={register}
                           type="password"
                           //value= {password}
                           error={errors.password?.message}

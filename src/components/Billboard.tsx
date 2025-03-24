@@ -1,12 +1,19 @@
 import { css, Global } from '@emotion/react'
 import useBillboard from "@/hooks/useBillboard";
-import React from "react";
+import React, { useCallback } from "react";
 import { globalStyle } from '@/styles/globalStyle';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import PlayButton from "./PlayButton";
+import useInfoModal from '@/hooks/useInfoModal';
 
 const Billboard = () => {
     const { data } = useBillboard();
+    const {openModal} = useInfoModal();
+
+    const handleOpenModal = useCallback(()=>{
+        openModal(data?.id);
+    },[openModal, data?.id]);
+
     return (
         <>
         <Global styles={globalStyle} />
@@ -49,7 +56,9 @@ const Billboard = () => {
                 };
                 @media (min-width: 1024px){width:60%; margin-top: 2rem;} ;
                 `}>{data?.description}</p>
-                <div css={css`
+                <div 
+                onClick={handleOpenModal}
+                css={css`
                     display: flex;
                     flex-direction: row;
                     gap: 3px;

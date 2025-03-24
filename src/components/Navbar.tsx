@@ -42,7 +42,7 @@ const toggleAccountMenu = useCallback (() => {
             <div css={css`
                 padding: 2rem 4rem;
                 @media (min-width: 768px) {
-                padding-left: 64px; /* md:px-16 */
+                padding-left: 64px; 
                 padding-right: 64px;
                 }
                 display: flex;
@@ -94,7 +94,7 @@ const toggleAccountMenu = useCallback (() => {
 
                     <div onClick={toggleAccountMenu} css={css`display: flex; flex-direction:row; align-items: center; gap:1rem; cursor: pointer; position:relative; `}>
                         <div   css={css`width:2rem; height: 2rem; @media (min-width: 1024px) {width: 40px; height: 40px; };border-radius:4px; overflow: hidden; `}>
-                            <img css={css`width:100%; height:100%`} src="/images/default-green.png" alt="" />
+                            <img css={css`width:100%; height:100%;`} src="/images/default-green.png" alt="" />
                         </div>
                         < BsChevronDown css={css`color: white; transition: 0.2s; transform: ${showAccountMenu ? "rotate(180deg)" : "rotate(0deg)"};`} />
                         < AccountMenu visible={showAccountMenu} />

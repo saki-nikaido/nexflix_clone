@@ -4,12 +4,15 @@ import { useRouter } from 'next/router';
 import { css } from '@emotion/react';
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "@/components/FavoriteButton";
+import { BiChevronDown } from "react-icons/bi";
+import useInfoModal from "@/hooks/useInfoModal";
 
 interface MovieListProps {
     data:Record<string, string>;
 }
 const MovieCard:React.FC<MovieListProps> = ({ data }) => {
     const router = useRouter();
+    const { openModal } =useInfoModal();
     return (
         <div css={css`position:relative;  height:12vw; background-color: rgb(24 24 27);
           &:hover > div {
@@ -41,6 +44,10 @@ const MovieCard:React.FC<MovieListProps> = ({ data }) => {
                             <BsFillPlayFill />
                         </div>
                         <FavoriteButton movieId={data?.id} />
+                        <div css={css`cursor:pointer;margin-left:auto; height:1.5rem; width: 1.5rem; border:2px solid white; box-sizing:border-box;  border-radius: 50%; 
+                        display:flex; justify-content:center; align-items: center; transform:0.2s; `}>
+                            <BiChevronDown onClick={() => openModal(data?.id)} css={css`color:white; `} />
+                        </div>
                     </div>
                     <p css={css`color:green; font-weight:bold; font-size:1rem; margin:0%; margin-top:0.5rem; `}>New<span css={css`color:white; padding-left:5px; font-weight:normal; `}>2023</span></p>
                     <div css={css`display:flex; flex-direction:row; margin-top:0; align-items:center;`}>

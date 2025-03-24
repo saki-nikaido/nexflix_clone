@@ -1,12 +1,16 @@
+import { ValidationSchema } from '@/utils/validationSchema';
 import { css } from '@emotion/react';
+import { UseFormRegister } from 'react-hook-form';
+
+
 
 interface InputProps {
-    id: string;
+    id: keyof ValidationSchema;
     //value: string;
     label: string;
     type?: string;
     error?: string;
-    register: any;
+    register: UseFormRegister<ValidationSchema>;
 }
 
 
@@ -24,7 +28,7 @@ export const Input: React.FC<InputProps>  = ({
                 type={type}
                 //value={value} 
                 id= {id}
-                {...register(id)}
+                {...register (id)}
                 css = {css`
                     display: block; 
                     border-radius: 6px;
