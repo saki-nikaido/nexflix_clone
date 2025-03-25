@@ -62,11 +62,13 @@ const Auth = () => {
     mode:"onChange",
     resolver: zodResolver(schema),
   });
+  
 
   const toggleVariant = useCallback(() => {
-      setVariant((currentVariant) => currentVariant == 'login' ? 'register' : 'login');
+      setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login');
   }, []);
   
+
   console.log("フォームエラー:", errors)
 
   const onSubmit = async(data: IFormInput ) => {
@@ -80,7 +82,7 @@ const Auth = () => {
           email: data.email,
           name: data.name,
           password: data.password,
-        });
+        },{ timeout: 10000 });
         console.log('新規登録完了');
       }
 
