@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import{ FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import { globalStyle } from "@/styles/globalStyle";
+import { useRouter } from 'next/router';
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,7 +34,7 @@ background-color: black;
 `;
 
 const Auth = () => {
-
+  const router = useRouter();
 
   const [variant, setVariant] = useState('login');
   
@@ -43,6 +44,10 @@ const Auth = () => {
     password: string
   }
 
+ // variantに基づいてスキーマを選択
+ const schema = variant === 'login' 
+ ? validationSchema.omit({ name: true }) // ログイン時はnameフィールドを除外
+ : validationSchema; // 登録時は全てのフィールドを検証
 
   const {
     register,
@@ -55,35 +60,60 @@ const Auth = () => {
       password: "",
     },
     mode:"onChange",
-    resolver: zodResolver(validationSchema),
+    resolver: zodResolver(schema),
   });
 
   const toggleVariant = useCallback(() => {
       setVariant((currentVariant) => currentVariant == 'login' ? 'register' : 'login');
   }, []);
   
-
+  console.log("フォームエラー:", errors)
 
   const onSubmit = async(data: IFormInput ) => {
-  try {
-    if(variant === "register"){
-    await axios.post('/api/register', {
-      email: data.email,
-      name: data.name,
-      password: data.password,
-    });
-  }
-  await signIn('credentials' , {
-    email: data.email,
-    password: data.password,
-    redirect: false,
-    callbackUrl:'/profiles'
-  });
-  } catch (error){
-    console.log(error);
-  };
-  };
+    try {
+      console.log('=== フォーム送信開始 ===');
+      console.log('フォームデータ:', data);
 
+      if(variant === "register"){
+        console.log('新規登録処理開始');
+        await axios.post('/api/register', {
+          email: data.email,
+          name: data.name,
+          password: data.password,
+        });
+        console.log('新規登録完了');
+      }
+
+      console.log('=== 認証処理開始 ===');
+      console.log('認証データ:', {
+        email: data.email,
+        password: data.password
+      });
+
+      const result = await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+        callbackUrl: '/profiles'
+      });
+
+      console.log('認証結果:', result);
+      console.log('認証ステータス:', result?.status);
+      console.log('エラー詳細:', result?.error);
+
+      if (result?.ok) {
+        console.log('認証成功 - プロフィールページへ遷移します');
+        router.push('/profiles');
+      } else {
+        console.log('認証失敗:', result?.error);
+      }
+
+    } catch (error){
+      console.log('=== エラー発生 ===');
+      console.error('エラーの種類:', error instanceof Error ? error.constructor.name : typeof error);
+      console.error('エラー詳細:', error);
+    };
+  };
 
 
   return (
@@ -100,7 +130,13 @@ const Auth = () => {
                   {css`background-color: rgba(0 , 0 ,0, 0.7); padding: 50px 50px; align-self: center; margin-top: 10px; 
                   @media (min-width: 1024px) {width: 40%; max-width: 380px; }; border-radius: 6px; width: 100%; margin-bottom:20px;`}>
                       <h2 css={css` color:white; font-size: 32px; margin-bottom: 32px; font-weight: 600;`}>{variant == 'login' ? 'Sign in' : 'Resister'}</h2>
-                      <form onSubmit={handleSubmit(onSubmit)} css={css`display: flex; flex-direction: column; gap: 1rem; `}>
+                      <form 
+                      onSubmit={(event) => 
+                      {
+                        console.log("フォーム送信");
+                        handleSubmit(onSubmit)(event);
+                      } }
+                      css={css`display: flex; flex-direction: column; gap: 1rem; `}>
                       {variant === 'register' && (
                           <Input 
                               label="Username"

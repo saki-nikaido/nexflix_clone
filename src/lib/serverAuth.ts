@@ -32,8 +32,8 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     return { currentUser };
-  } catch (error: any) {
-    console.error("Server Auth Error:", error.message);
+  } catch (error: unknown) {
+    console.error("Server Auth Error:", error instanceof Error ? error.message : 'Unknown error');
     throw error;
   }
 };
