@@ -1,27 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
 # NETFLIX Clone
 
 
 ## 概要
-NETFlixのCloneを作成
+動画配信アプリNETFLIXのCloneを作成
+
 ## デモ
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+メイン画面
+
+
+
+ログイン画面
+![Image](https://github.com/user-attachments/assets/d3be04ee-3b5f-4ae3-aa53-ced3641d3b07)
+
 ## 機能一覧
-Credential / Google アカウント / GitHub アカウント login  
+Credential / Google アカウント / GitHub アカウントでlogin  
+React Hook Formとzodを使用してフォーム作成バリデーションチェック機能追加  
 アカウント登録後自動でプロフィール生成  
-ログイン後ランダムに選ばれた映画、トレンドの映画リスト、マイリストを表示  
+ログイン後ランダムに選ばれた映画の表示
+トレンドの映画リスト、マイリストを表示  
 お気に入り（マイリストへの追加）  
 作品詳細をモーダルで表示  
-Play ボタンで再生  
+Play ボタンで作品再生  
+レスポンシブ対応
 ## 使用技術
 | カテゴリ | 技術スタック |
 | --- | --- |
@@ -29,10 +30,6 @@ Play ボタンで再生
 | スタイリング |Emotion |
 | サーバーサイドレンダリング |Next.js |
 | データベース| MongoDB |
-| その他| Prisma<br> NextAuth<br> Vercel<br>|
-
-## 参考
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+| 認証ライブラリ| NextAuth |
+| バージョン管理| Github |
+| その他| Prisma<br> Vercel<br>ハッシュ化Bcrypt<br>ライブラリ React Hook Form, Zod|
