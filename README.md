@@ -6,13 +6,12 @@
 動画配信アプリNETFLIXのCloneを作成
 
 ## デモ
-メイン画面
+メイン画面  
+![Image](https://github.com/user-attachments/assets/bef09ee1-7b28-4cc7-9c81-f6de9c858b95)<br>
 
 
-
-ログイン画面
-![Image](https://github.com/user-attachments/assets/d3be04ee-3b5f-4ae3-aa53-ced3641d3b07)
-
+ログイン画面  
+<img width="895" src="https://github.com/user-attachments/assets/d3be04ee-3b5f-4ae3-aa53-ced3641d3b07">
 ## 機能一覧
 Credential / Google アカウント / GitHub アカウントでlogin  
 React Hook Formとzodを使用してフォーム作成バリデーションチェック機能追加  
@@ -22,7 +21,9 @@ React Hook Formとzodを使用してフォーム作成バリデーションチ�
 お気に入り（マイリストへの追加）  
 作品詳細をモーダルで表示  
 Play ボタンで作品再生  
-レスポンシブ対応
+
+レスポンシブ対応  
+<img width="320" src="https://github.com/user-attachments/assets/557b5e55-825b-4c21-8d26-efe81cbeeb73">
 ## 使用技術
 | カテゴリ | 技術スタック |
 | --- | --- |
